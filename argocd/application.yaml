@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/oguzhankirlar/argo.git
     targetRevision: HEAD
-    path: ../helm
+    path: helm
     helm:
       valueFiles:
         - values.yaml
