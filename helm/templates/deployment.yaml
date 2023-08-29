@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.stack }}-{{ .Values.service }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      run: {{ .Values.stack }}-{{ .Values.service }}
+  template:
+    metadata:
+      labels:
+        run: {{ .Values.stack }}-{{ .Values.service }}
+        name: icon-cloud
+        app.kubernetes.io/name: icon-cloud-test
+    spec:
+      containers:
+        - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          securityContext:
+            privileged: true
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: {{ .Values.stack }}-{{ .Values.service }}
+          ports:
+            - containerPort: {{ .Values.port }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}

@@ -1,0 +1,14 @@
+replicaCount: 2
+
+image:
+  repository: icon-test
+  pullPolicy: Never
+  tag: "latest"
+
+stack : "icon"
+service : "test"
+port : 8090
+host: icontest.com
+namespace: test
+
+resources: {}

@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-icon-test
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/oguzhankirlar/argo.git
+    targetRevision: HEAD
+    path: ../helm
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: test
+  syncPolicy:
+    syncOptions:
+      - CreateNameSpace=true
+    automated:
+      selfHeal: true
+      prune: true
